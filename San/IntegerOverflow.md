@@ -9,11 +9,23 @@ void test(){
 }
 ```
 
-### Case-1 Res
+### Case-1 Gcc Res
 ```
+gcc的integer sanitizer只提供integer-divide-by-zero，signed-integer-overflow
+输出0
+无warning无报错
+```
+
+### Case-1 Clang Res
+```
+clang -g -o case_clang case1.c -fsanitize=integer
+SANITIZER_GROUP("integer", Integer,
+                    ImplicitConversion | IntegerDivideByZero | Shift |
+                    SignedIntegerOverflow | UnsignedIntegerOverflow)
+case1.c:5:23: runtime error: unsigned integer overflow: 4294967295 + 1 cannot be represented in type 'unsigned int'
 0
-(1) Address Sanitizer无法检测出unsigned int的overflow。
-(2) 编译时用gcc -g -fsanitizer=address连warning都不会给。
+检测出unisgned integer overflow，并输出错误行号。
+
 ```
 
 ### Case-2 Code
@@ -25,10 +37,13 @@ void test(){
 }
 ```
 
-### Case-2 Res
+### Case-2 Res Gcc
 ```
+gcc -g -o case2_gcc case2.c -fsanitize=signed-integer-overflow
+case2.c:5:9: runtime error: signed integer overflow: 2147483647 + 1 cannot be represented in type 'int'
 -2147483648
-同上无warning无error。
+检测出signed integer overflow，并输出错误行号。
+
 ```
 
 ---
@@ -44,8 +59,8 @@ void test(){
 }
 ```
 
-### Case-3 Res
+### Case-3 Res Gcc & Clang
 ```
--1
-同上无报错无warning。
+输出-1
+无报错无warning。
 ```
