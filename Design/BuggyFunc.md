@@ -36,7 +36,7 @@ the variable 'buf' in above example.
     
     (Since Asan's predict on the name of vulnerable buf is sometimes not reliable)
 
-    <font color="red" >not figure out the possible solution yet </font>
+    `not figure out a possible solution yet`
 
 ---
 * Step 2:
@@ -51,7 +51,7 @@ the variable 'buf' in above example.
     1) check the existence of buggy function based on LLVM IR (simply by function name)
     2) further collect the vulnerability point in Step.1, try to locate the point in test version by matching the featured behavior in CFG, maybe along with the context info.
     
-    <font color='red'> Solution Details : FIX ME @ZXH</font>
+`Solution Details : FIX ME @ZXH`
 
 ---
 
